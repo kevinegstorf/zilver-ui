@@ -1,1 +1,1 @@
-import{p,b as a}from"./p-359ac9d2.js";p().then(p=>a([["p-qqfp79sq",[[1,"zui-input",{placeholder:[1]}]]]],p));
+import{p as e,b as o}from"./p-99965c1b.js";e().then(e=>o([["p-ts43hjto",[[1,"zui-number-input",{placeholder:[1]},[[0,"keydown","handleKeyDown"]]]]]],e));

@@ -1,0 +1,37 @@
+System.register(['./p-e3064bad.system.js'], function (exports) {
+    'use strict';
+    var registerInstance, h;
+    return {
+        setters: [function (module) {
+                registerInstance = module.r;
+                h = module.h;
+            }],
+        execute: function () {
+            var Input = exports('zui_input', /** @class */ (function () {
+                function class_1(hostRef) {
+                    registerInstance(this, hostRef);
+                }
+                class_1.prototype.handleKeyDown = function (ev) {
+                    var isNum = /^[a-zA-Z0-9._\b]+$/.test(String.fromCharCode(ev.keyCode));
+                    if (ev.key === "ArrowUp" || ev.key === "ArrowDown") {
+                        return;
+                    }
+                    else if (!isNum) {
+                        ev.preventDefault();
+                        return false;
+                    }
+                    return undefined;
+                };
+                class_1.prototype.render = function () {
+                    return (h("input", { pattern: "\\d*", type: "number", placeholder: this.placeholder, value: "" }));
+                };
+                Object.defineProperty(class_1, "style", {
+                    get: function () { return "STYLE_TEXT_PLACEHOLDER:zui-input"; },
+                    enumerable: true,
+                    configurable: true
+                });
+                return class_1;
+            }()));
+        }
+    };
+});

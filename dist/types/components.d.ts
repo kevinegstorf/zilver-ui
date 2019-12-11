@@ -10,7 +10,7 @@ import { HTMLStencilElement, JSXBase } from './stencil.core';
 
 
 export namespace Components {
-  interface ZuiInput {
+  interface ZuiNumberInput {
     /**
     * placeholder text
     */
@@ -21,18 +21,18 @@ export namespace Components {
 declare global {
 
 
-  interface HTMLZuiInputElement extends Components.ZuiInput, HTMLStencilElement {}
-  var HTMLZuiInputElement: {
-    prototype: HTMLZuiInputElement;
-    new (): HTMLZuiInputElement;
+  interface HTMLZuiNumberInputElement extends Components.ZuiNumberInput, HTMLStencilElement {}
+  var HTMLZuiNumberInputElement: {
+    prototype: HTMLZuiNumberInputElement;
+    new (): HTMLZuiNumberInputElement;
   };
   interface HTMLElementTagNameMap {
-    'zui-input': HTMLZuiInputElement;
+    'zui-number-input': HTMLZuiNumberInputElement;
   }
 }
 
 declare namespace LocalJSX {
-  interface ZuiInput {
+  interface ZuiNumberInput {
     /**
     * placeholder text
     */
@@ -40,7 +40,7 @@ declare namespace LocalJSX {
   }
 
   interface IntrinsicElements {
-    'zui-input': ZuiInput;
+    'zui-number-input': ZuiNumberInput;
   }
 }
 
@@ -50,7 +50,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
   export namespace JSX {
     interface IntrinsicElements {
-      'zui-input': LocalJSX.ZuiInput & JSXBase.HTMLAttributes<HTMLZuiInputElement>;
+      'zui-number-input': LocalJSX.ZuiNumberInput & JSXBase.HTMLAttributes<HTMLZuiNumberInputElement>;
     }
   }
 }
