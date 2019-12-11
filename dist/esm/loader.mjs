@@ -1,8 +1,8 @@
-import { a as patchEsm, b as bootstrapLazy } from './core-c8080779.js';
+import { a as patchEsm, b as bootstrapLazy } from './core-5f0ed200.js';
 
 const defineCustomElements = (win, options) => {
   return patchEsm().then(() => {
-    bootstrapLazy([["zui-number-input",[[1,"zui-number-input",{"placeholder":[1]},[[0,"keydown","handleKeyDown"]]]]]], options);
+    bootstrapLazy([["zui-number-input",[[1,"zui-number-input",{"placeholder":[1],"minimalNumber":[2,"minimal-number"]},[[0,"keydown","handleKeyDown"]]]]]], options);
   });
 };
 

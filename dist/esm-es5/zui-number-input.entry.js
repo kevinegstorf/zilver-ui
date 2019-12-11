@@ -1,7 +1,12 @@
-import { r as registerInstance, h } from './core-c8080779.js';
+import { r as registerInstance, h } from './core-5f0ed200.js';
 var NumberInput = /** @class */ (function () {
     function NumberInput(hostRef) {
         registerInstance(this, hostRef);
+        /**
+         * minimalNumber is the minimal value it takes
+         * the default value is set to 0 so it will not accept negative numbers
+         */
+        this.minimalNumber = 0;
     }
     NumberInput.prototype.handleKeyDown = function (ev) {
         var isNum = /^[a-zA-Z0-9._\b]+$/.test(String.fromCharCode(ev.keyCode));
@@ -15,7 +20,7 @@ var NumberInput = /** @class */ (function () {
         return undefined;
     };
     NumberInput.prototype.render = function () {
-        return (h("input", { pattern: "\\d*", type: "number", placeholder: this.placeholder, value: "" }));
+        return (h("input", { pattern: "\\d*", type: "number", min: this.minimalNumber, placeholder: this.placeholder }));
     };
     Object.defineProperty(NumberInput, "style", {
         get: function () { return "input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}input[type=number]{-moz-appearance:textfield}"; },

@@ -1,12 +1,8 @@
-'use strict';
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
-const core = require('./core-16721893.js');
-
-const NumberInput = class {
+import { registerInstance as __stencil_registerInstance } from "@stencil/core";
+import { h } from "@stencil/core";
+export const NumberInput = class {
     constructor(hostRef) {
-        core.registerInstance(this, hostRef);
+        __stencil_registerInstance(this, hostRef);
         /**
          * minimalNumber is the minimal value it takes
          * the default value is set to 0 so it will not accept negative numbers
@@ -25,9 +21,7 @@ const NumberInput = class {
         return undefined;
     }
     render() {
-        return (core.h("input", { pattern: "\\d*", type: "number", min: this.minimalNumber, placeholder: this.placeholder }));
+        return (h("input", { pattern: "\\d*", type: "number", min: 0, placeholder: this.placeholder }));
     }
-    static get style() { return "input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}input[type=number]{-moz-appearance:textfield}"; }
+    static get style() { return "STYLE_TEXT_PLACEHOLDER:zui-number-input"; }
 };
-
-exports.zui_number_input = NumberInput;

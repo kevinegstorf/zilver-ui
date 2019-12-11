@@ -1,5 +1,12 @@
 import { h } from "@stencil/core";
 export class NumberInput {
+    constructor() {
+        /**
+         * minimalNumber is the minimal value it takes
+         * the default value is set to 0 so it will not accept negative numbers
+         */
+        this.minimalNumber = 0;
+    }
     handleKeyDown(ev) {
         const isNum = /^[a-zA-Z0-9._\b]+$/.test(String.fromCharCode(ev.keyCode));
         if (ev.key === "ArrowUp" || ev.key === "ArrowDown") {
@@ -12,7 +19,7 @@ export class NumberInput {
         return undefined;
     }
     render() {
-        return (h("input", { pattern: "\\d*", type: "number", placeholder: this.placeholder, value: "" }));
+        return (h("input", { pattern: "\\d*", type: "number", min: this.minimalNumber, placeholder: this.placeholder }));
     }
     static get is() { return "zui-number-input"; }
     static get encapsulation() { return "shadow"; }
@@ -39,6 +46,24 @@ export class NumberInput {
             },
             "attribute": "placeholder",
             "reflect": false
+        },
+        "minimalNumber": {
+            "type": "number",
+            "mutable": false,
+            "complexType": {
+                "original": "number",
+                "resolved": "number",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": "minimalNumber is the minimal value it takes\nthe default value is set to 0 so it will not accept negative numbers"
+            },
+            "attribute": "minimal-number",
+            "reflect": false,
+            "defaultValue": "0"
         }
     }; }
     static get listeners() { return [{

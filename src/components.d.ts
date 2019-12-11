@@ -12,6 +12,10 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 export namespace Components {
   interface ZuiNumberInput {
     /**
+    * minimalNumber is the minimal value it takes the default value is set to 0 so it will not accept negative numbers
+    */
+    'minimalNumber': number;
+    /**
     * placeholder text
     */
     'placeholder': string;
@@ -33,6 +37,10 @@ declare global {
 
 declare namespace LocalJSX {
   interface ZuiNumberInput {
+    /**
+    * minimalNumber is the minimal value it takes the default value is set to 0 so it will not accept negative numbers
+    */
+    'minimalNumber'?: number;
     /**
     * placeholder text
     */
