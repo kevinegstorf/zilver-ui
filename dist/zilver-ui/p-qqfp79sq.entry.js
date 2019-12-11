@@ -1,0 +1,1 @@
+import{r as t,h as r}from"./p-359ac9d2.js";const e=class{constructor(r){t(this,r)}render(){return r("input",{type:"number",placeholder:this.placeholder})}static get style(){return""}};export{e as zui_input};

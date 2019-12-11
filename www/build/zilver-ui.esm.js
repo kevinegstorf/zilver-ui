@@ -1,6 +1,1 @@
-import { p as patchBrowser, g as globals, b as bootstrapLazy } from './core-16483a35.js';
-
-patchBrowser().then(options => {
-  globals();
-  return bootstrapLazy([["zui-input",[[1,"zui-input",{"placeholder":[1]}]]]], options);
-});
+import{p,b as a}from"./p-359ac9d2.js";p().then(p=>a([["p-qqfp79sq",[[1,"zui-input",{placeholder:[1]}]]]],p));

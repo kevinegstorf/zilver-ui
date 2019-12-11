@@ -1,0 +1,16 @@
+import { r as registerInstance, h } from './core-97da44e6.js';
+var Input = /** @class */ (function () {
+    function Input(hostRef) {
+        registerInstance(this, hostRef);
+    }
+    Input.prototype.render = function () {
+        return h("input", { type: "number", placeholder: this.placeholder });
+    };
+    Object.defineProperty(Input, "style", {
+        get: function () { return "STYLE_TEXT_PLACEHOLDER:zui-input"; },
+        enumerable: true,
+        configurable: true
+    });
+    return Input;
+}());
+export { Input as zui_input };

@@ -1,4 +1,4 @@
-import { r as registerInstance, h } from './core-16483a35.js';
+import { r as registerInstance, h } from './core-97da44e6.js';
 
 const Input = class {
     constructor(hostRef) {
