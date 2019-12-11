@@ -11,6 +11,12 @@ export class NumberInput {
    */
   @Prop() placeholder: string;
 
+  /**
+   * minimalNumber is the minimal value it takes
+   * the default value is set to 0 so it will not accept negative numbers
+   */
+  @Prop() minimalNumber: 0;
+
   @Listen("keydown")
   handleKeyDown(ev: KeyboardEvent) {
     const isNum = /^[a-zA-Z0-9._\b]+$/.test(String.fromCharCode(ev.keyCode));
@@ -24,6 +30,13 @@ export class NumberInput {
   }
 
   render() {
-    return <input pattern="\d*" type="number" placeholder={this.placeholder} />;
+    return (
+      <input
+        pattern="\d*"
+        type="number"
+        min={this.minimalNumber}
+        placeholder={this.placeholder}
+      />
+    );
   }
 }
