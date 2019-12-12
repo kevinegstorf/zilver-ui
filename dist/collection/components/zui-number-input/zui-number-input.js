@@ -78,7 +78,7 @@ export class NumberInput {
             "optional": false,
             "docs": {
                 "tags": [],
-                "text": ""
+                "text": "value prop that can set the value attribute"
             },
             "attribute": "value",
             "reflect": false

@@ -24,6 +24,9 @@ export class NumberInput {
    */
   @Prop() minimalNumber = 0;
 
+  /**
+   * value prop that can set the value attribute
+   */
   @Prop() value: string;
 
   @Listen("keydown")

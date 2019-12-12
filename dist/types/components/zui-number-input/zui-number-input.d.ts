@@ -13,6 +13,9 @@ export declare class NumberInput {
      * the default value is set to 0 so it will not accept negative numbers
      */
     minimalNumber: number;
+    /**
+     * value prop that can set the value attribute
+     */
     value: string;
     handleKeyDown(ev: KeyboardEvent): boolean;
     render(): any;
