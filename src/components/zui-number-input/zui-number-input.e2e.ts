@@ -1,32 +1,33 @@
 import { newE2EPage } from "@stencil/core/testing";
 
-describe("my-component", () => {
+describe("zui-number-input", () => {
   it("renders", async () => {
     const page = await newE2EPage();
 
-    await page.setContent("<my-component></my-component>");
-    const element = await page.find("my-component");
-    expect(element).toHaveClass("hydrated");
+    await page.setContent("<zui-number-input></zui-number-input>");
+    const element = await page.find("zui-number-input");
+    expect(element).not.toBeNull();
   });
 
-  it("renders changes to the name data", async () => {
-    const page = await newE2EPage();
+  describe("only takes number values", () => {
+    it("render the number 10", async () => {
+      const page = await newE2EPage();
 
-    await page.setContent("<my-component></my-component>");
-    const component = await page.find("my-component");
-    const element = await page.find("my-component >>> div");
-    expect(element.textContent).toEqual(`Hello, World! I'm `);
+      await page.setContent("<zui-number-input value='10'></zui-number-input>");
+      const input = await page.find("zui-number-input >>> input");
+      let value = await input.getProperty("value");
 
-    component.setProperty("first", "James");
-    await page.waitForChanges();
-    expect(element.textContent).toEqual(`Hello, World! I'm James`);
+      expect(value).toBe("10");
+    });
 
-    component.setProperty("last", "Quincy");
-    await page.waitForChanges();
-    expect(element.textContent).toEqual(`Hello, World! I'm James Quincy`);
+    it("renders an empty string", async () => {
+      const page = await newE2EPage();
 
-    component.setProperty("middle", "Earl");
-    await page.waitForChanges();
-    expect(element.textContent).toEqual(`Hello, World! I'm James Earl Quincy`);
+      await page.setContent("<zui-number-input value='b'></zui-number-input>");
+      const input = await page.find("zui-number-input >>> input");
+      let value = await input.getProperty("value");
+
+      expect(value).toBe("");
+    });
   });
 });

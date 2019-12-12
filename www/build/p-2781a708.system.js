@@ -1,1 +1,0 @@
-System.register(["./p-f7c882ed.system.js"],(function(){"use strict";var e,n;return{setters:[function(t){e=t.p;n=t.b}],execute:function(){e().then((function(e){return n([["p-gabl2mch.system",[[1,"zui-number-input",{placeholder:[1],minimalNumber:[2,"minimal-number"]},[[0,"keydown","handleKeyDown"]]]]]],e)}))}}}));

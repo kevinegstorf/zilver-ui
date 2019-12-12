@@ -2,7 +2,7 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-const core = require('./core-16721893.js');
+const core = require('./core-99fa7669.js');
 
 const NumberInput = class {
     constructor(hostRef) {
@@ -16,6 +16,7 @@ const NumberInput = class {
     handleKeyDown(ev) {
         const isNum = /^[a-zA-Z0-9._\b]+$/.test(String.fromCharCode(ev.keyCode));
         if (ev.key === "ArrowUp" || ev.key === "ArrowDown") {
+            this.numValue = this.numInput.value;
             return;
         }
         else if (!isNum) {
@@ -25,9 +26,9 @@ const NumberInput = class {
         return undefined;
     }
     render() {
-        return (core.h("input", { pattern: "\\d*", type: "number", min: this.minimalNumber, placeholder: this.placeholder }));
+        return (core.h("input", { pattern: "\\d*", type: "number", min: this.minimalNumber, placeholder: this.placeholder, ref: el => (this.numInput = el), value: this.numValue || this.value }));
     }
-    static get style() { return "input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}input[type=number]{-moz-appearance:textfield}"; }
+    static get style() { return "input[type=\"number\"]::-webkit-outer-spin-button,\ninput[type=\"number\"]::-webkit-inner-spin-button {\n  -webkit-appearance: none;\n  margin: 0;\n}\ninput[type=\"number\"] {\n  -moz-appearance: textfield;\n}"; }
 };
 
 exports.zui_number_input = NumberInput;

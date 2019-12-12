@@ -16,9 +16,10 @@ export namespace Components {
     */
     'minimalNumber': number;
     /**
-    * placeholder text
+    * placeholder text to set the placeholder attribute
     */
     'placeholder': string;
+    'value': string;
   }
 }
 
@@ -42,9 +43,10 @@ declare namespace LocalJSX {
     */
     'minimalNumber'?: number;
     /**
-    * placeholder text
+    * placeholder text to set the placeholder attribute
     */
     'placeholder'?: string;
+    'value'?: string;
   }
 
   interface IntrinsicElements {

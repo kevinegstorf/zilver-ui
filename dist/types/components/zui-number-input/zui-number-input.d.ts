@@ -1,6 +1,11 @@
 export declare class NumberInput {
+    numInput: HTMLInputElement;
     /**
-     * placeholder text
+     * numValue is used to control the input value
+     */
+    numValue: string;
+    /**
+     * placeholder text to set the placeholder attribute
      */
     placeholder: string;
     /**
@@ -8,6 +13,7 @@ export declare class NumberInput {
      * the default value is set to 0 so it will not accept negative numbers
      */
     minimalNumber: number;
+    value: string;
     handleKeyDown(ev: KeyboardEvent): boolean;
     render(): any;
 }

@@ -10,6 +10,7 @@ export class NumberInput {
     handleKeyDown(ev) {
         const isNum = /^[a-zA-Z0-9._\b]+$/.test(String.fromCharCode(ev.keyCode));
         if (ev.key === "ArrowUp" || ev.key === "ArrowDown") {
+            this.numValue = this.numInput.value;
             return;
         }
         else if (!isNum) {
@@ -19,7 +20,7 @@ export class NumberInput {
         return undefined;
     }
     render() {
-        return (h("input", { pattern: "\\d*", type: "number", min: this.minimalNumber, placeholder: this.placeholder }));
+        return (h("input", { pattern: "\\d*", type: "number", min: this.minimalNumber, placeholder: this.placeholder, ref: el => (this.numInput = el), value: this.numValue || this.value }));
     }
     static get is() { return "zui-number-input"; }
     static get encapsulation() { return "shadow"; }
@@ -42,7 +43,7 @@ export class NumberInput {
             "optional": false,
             "docs": {
                 "tags": [],
-                "text": "placeholder text"
+                "text": "placeholder text to set the placeholder attribute"
             },
             "attribute": "placeholder",
             "reflect": false
@@ -64,7 +65,27 @@ export class NumberInput {
             "attribute": "minimal-number",
             "reflect": false,
             "defaultValue": "0"
+        },
+        "value": {
+            "type": "string",
+            "mutable": false,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "value",
+            "reflect": false
         }
+    }; }
+    static get states() { return {
+        "numValue": {}
     }; }
     static get listeners() { return [{
             "name": "keydown",

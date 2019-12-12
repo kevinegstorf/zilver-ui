@@ -1,4 +1,4 @@
-import { Component, Prop, h, Listen } from "@stencil/core";
+import { Component, Prop, h, Listen, State } from "@stencil/core";
 
 @Component({
   tag: "zui-number-input",
@@ -6,8 +6,15 @@ import { Component, Prop, h, Listen } from "@stencil/core";
   shadow: true
 })
 export class NumberInput {
+  numInput: HTMLInputElement;
+
   /**
-   * placeholder text
+   * numValue is used to control the input value
+   */
+  @State() numValue: string;
+
+  /**
+   * placeholder text to set the placeholder attribute
    */
   @Prop() placeholder: string;
 
@@ -17,10 +24,13 @@ export class NumberInput {
    */
   @Prop() minimalNumber = 0;
 
+  @Prop() value: string;
+
   @Listen("keydown")
   handleKeyDown(ev: KeyboardEvent) {
     const isNum = /^[a-zA-Z0-9._\b]+$/.test(String.fromCharCode(ev.keyCode));
     if (ev.key === "ArrowUp" || ev.key === "ArrowDown") {
+      this.numValue = this.numInput.value;
       return;
     } else if (!isNum) {
       ev.preventDefault();
@@ -36,6 +46,8 @@ export class NumberInput {
         type="number"
         min={this.minimalNumber}
         placeholder={this.placeholder}
+        ref={el => (this.numInput = el)}
+        value={this.numValue || this.value}
       />
     );
   }
