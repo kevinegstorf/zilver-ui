@@ -18,6 +18,7 @@ describe("zui-number-input", () => {
       let value = await input.getProperty("value");
 
       expect(value).toBe("10");
+      expect(value).not.toBe("");
     });
 
     it("renders an empty string", async () => {
@@ -28,6 +29,7 @@ describe("zui-number-input", () => {
       let value = await input.getProperty("value");
 
       expect(value).toBe("");
+      expect(value).not.toBe(".");
     });
   });
 
@@ -41,6 +43,7 @@ describe("zui-number-input", () => {
       let value = await input.getProperty("value");
 
       expect(value).toBe("");
+      expect(value).not.toBe(".");
     });
     it("renders an empty string when - character is pressed", async () => {
       const page = await newE2EPage();
@@ -51,6 +54,7 @@ describe("zui-number-input", () => {
       let value = await input.getProperty("value");
 
       expect(value).toBe("");
+      expect(value).not.toBe("-");
     });
     it("renders a number when number is pressed", async () => {
       const page = await newE2EPage();
@@ -61,6 +65,7 @@ describe("zui-number-input", () => {
       let value = await input.getProperty("value");
 
       expect(value).toBe("9");
+      expect(value).not.toBe("");
     });
   });
 });
