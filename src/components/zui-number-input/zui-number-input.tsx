@@ -29,6 +29,9 @@ export class NumberInput {
    */
   @Prop() value: string;
 
+  /**
+   * handleKeydown makes sure it only accepts numbers
+   */
   @Listen("keydown")
   handleKeyDown(ev: KeyboardEvent) {
     const isNum = /^[a-zA-Z0-9._\b]+$/.test(String.fromCharCode(ev.keyCode));

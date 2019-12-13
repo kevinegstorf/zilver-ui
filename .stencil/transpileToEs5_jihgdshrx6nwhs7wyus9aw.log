@@ -28,7 +28,7 @@ var NumberInput = /** @class */ (function () {
         return (h("input", { pattern: "\\d*", type: "number", min: this.minimalNumber, placeholder: this.placeholder, ref: function (el) { return (_this.numInput = el); }, value: this.numValue || this.value }));
     };
     Object.defineProperty(NumberInput, "style", {
-        get: function () { return "input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}input[type=number]{-moz-appearance:textfield}"; },
+        get: function () { return "STYLE_TEXT_PLACEHOLDER:zui-number-input"; },
         enumerable: true,
         configurable: true
     });

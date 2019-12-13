@@ -52,7 +52,7 @@ describe("zui-number-input", () => {
 
       expect(value).toBe("");
     });
-    it("renders an empty string", async () => {
+    it("renders a number when number is pressed", async () => {
       const page = await newE2EPage();
 
       await page.setContent("<zui-number-input value='.'></zui-number-input>");

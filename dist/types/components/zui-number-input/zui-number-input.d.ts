@@ -17,6 +17,9 @@ export declare class NumberInput {
      * value prop that can set the value attribute
      */
     value: string;
+    /**
+     * handleKeydown makes sure it only accepts numbers
+     */
     handleKeyDown(ev: KeyboardEvent): boolean;
     render(): any;
 }

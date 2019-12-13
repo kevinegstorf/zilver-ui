@@ -1,4 +1,4 @@
-import { r as registerInstance, h } from './core-0761f511.js';
+import { r as registerInstance, h } from './core-930aed62.js';
 
 const NumberInput = class {
     constructor(hostRef) {
@@ -9,6 +9,9 @@ const NumberInput = class {
          */
         this.minimalNumber = 0;
     }
+    /**
+     * handleKeydown makes sure it only accepts numbers
+     */
     handleKeyDown(ev) {
         const isNum = /^[a-zA-Z0-9._\b]+$/.test(String.fromCharCode(ev.keyCode));
         if (ev.key === "ArrowUp" || ev.key === "ArrowDown") {
@@ -24,7 +27,7 @@ const NumberInput = class {
     render() {
         return (h("input", { pattern: "\\d*", type: "number", min: this.minimalNumber, placeholder: this.placeholder, ref: el => (this.numInput = el), value: this.numValue || this.value }));
     }
-    static get style() { return "input[type=\"number\"]::-webkit-outer-spin-button,\ninput[type=\"number\"]::-webkit-inner-spin-button {\n  -webkit-appearance: none;\n  margin: 0;\n}\ninput[type=\"number\"] {\n  -moz-appearance: textfield;\n}"; }
+    static get style() { return "input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}input[type=number]{-moz-appearance:textfield}"; }
 };
 
 export { NumberInput as zui_number_input };
