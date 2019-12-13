@@ -1,4 +1,4 @@
-name: Node.js Package
+name: Publish to GitHub Package Registry
 
 on:
   push:
@@ -6,30 +6,34 @@ on:
       - master
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-      - run: npm ci
-      - run: npm test
 
-  publish-npm:
-    needs: build
+  publish-gpr:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-          registry-url: https://registry.npmjs.org/
+          registry-url: https://npm.pkg.github.com/
+          scope: '@kevinegstorf'
+          
+      - run: npm run test
+      
+      - name: Setup GIT
+        run: |
+          git switch -c master
+          git config --global user.email "kevin.egstorf@gmail.com"
+          git config --global user.name "kevinegstorf"
+          
+      - name: Bump version
+        run: |
+          npm version patch
+          git push https://${{secrets.GPR_TOKEN}}@github.com/PeterHewat/test-actions-gpr
       - run: npm ci
-#       - run: npm version patch
-#         env:
-#           NODE_AUTH_TOKEN: ${{secrets.GH_Token}}
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-          
+        
+    
+        
+
