@@ -1,0 +1,1 @@
+import{r as t,h as e}from"./p-042fe7d5.js";const r=class{constructor(e){t(this,e)}render(){return e("input",{type:"text",placeholder:this.placeholder,ref:t=>this.numInput=t,value:this.textValue||this.value})}static get style(){return"STYLE_TEXT_PLACEHOLDER:zui-text-input"}};export{r as zui_text_input};

@@ -1,0 +1,17 @@
+import { r as registerInstance, h } from './core-02d1720a.js';
+var TextInput = /** @class */ (function () {
+    function TextInput(hostRef) {
+        registerInstance(this, hostRef);
+    }
+    TextInput.prototype.render = function () {
+        var _this = this;
+        return (h("input", { type: "text", placeholder: this.placeholder, ref: function (el) { return (_this.numInput = el); }, value: this.textValue || this.value }));
+    };
+    Object.defineProperty(TextInput, "style", {
+        get: function () { return "STYLE_TEXT_PLACEHOLDER:zui-text-input"; },
+        enumerable: true,
+        configurable: true
+    });
+    return TextInput;
+}());
+export { TextInput as zui_text_input };

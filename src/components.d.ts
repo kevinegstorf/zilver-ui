@@ -24,6 +24,16 @@ export namespace Components {
     */
     'value': string;
   }
+  interface ZuiTextInput {
+    /**
+    * placeholder text to set the placeholder attribute
+    */
+    'placeholder': string;
+    /**
+    * value prop that can set the value attribute
+    */
+    'value': string;
+  }
 }
 
 declare global {
@@ -34,8 +44,15 @@ declare global {
     prototype: HTMLZuiNumberInputElement;
     new (): HTMLZuiNumberInputElement;
   };
+
+  interface HTMLZuiTextInputElement extends Components.ZuiTextInput, HTMLStencilElement {}
+  var HTMLZuiTextInputElement: {
+    prototype: HTMLZuiTextInputElement;
+    new (): HTMLZuiTextInputElement;
+  };
   interface HTMLElementTagNameMap {
     'zui-number-input': HTMLZuiNumberInputElement;
+    'zui-text-input': HTMLZuiTextInputElement;
   }
 }
 
@@ -54,9 +71,20 @@ declare namespace LocalJSX {
     */
     'value'?: string;
   }
+  interface ZuiTextInput {
+    /**
+    * placeholder text to set the placeholder attribute
+    */
+    'placeholder'?: string;
+    /**
+    * value prop that can set the value attribute
+    */
+    'value'?: string;
+  }
 
   interface IntrinsicElements {
     'zui-number-input': ZuiNumberInput;
+    'zui-text-input': ZuiTextInput;
   }
 }
 
@@ -67,6 +95,7 @@ declare module "@stencil/core" {
   export namespace JSX {
     interface IntrinsicElements {
       'zui-number-input': LocalJSX.ZuiNumberInput & JSXBase.HTMLAttributes<HTMLZuiNumberInputElement>;
+      'zui-text-input': LocalJSX.ZuiTextInput & JSXBase.HTMLAttributes<HTMLZuiTextInputElement>;
     }
   }
 }

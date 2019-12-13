@@ -1,6 +1,5 @@
-import { p as patchBrowser, g as globals, b as bootstrapLazy } from './core-0761f511.js';
+import { p as patchBrowser, b as bootstrapLazy } from './core-930aed62.js';
 
 patchBrowser().then(options => {
-  globals();
-  return bootstrapLazy([["zui-number-input",[[1,"zui-number-input",{"placeholder":[1],"minimalNumber":[2,"minimal-number"],"value":[1],"numValue":[32]},[[0,"keydown","handleKeyDown"]]]]]], options);
+  return bootstrapLazy([["zui-number-input_2",[[0,"zui-number-input",{"placeholder":[1],"minimalNumber":[2,"minimal-number"],"value":[1],"numValue":[32]},[[0,"keydown","handleKeyDown"]]],[1,"zui-text-input",{"placeholder":[1],"value":[1],"textValue":[32]}]]]], options);
 });

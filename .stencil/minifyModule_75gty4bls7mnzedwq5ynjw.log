@@ -1,0 +1,1 @@
+import{p as e,b as a}from"./p-042fe7d5.js";e().then(e=>a([["p-5clu1atj",[[0,"zui-number-input",{placeholder:[1],minimalNumber:[2,"minimal-number"],value:[1],onChange:[16],numValue:[32]},[[0,"keydown","handleKeyDown"]]]]],["p-dp6vlntv",[[1,"zui-text-input",{placeholder:[1],value:[1],textValue:[32]}]]]],e));
