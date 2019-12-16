@@ -1,7 +1,7 @@
 {
   "entries": [
-    "components/base-components/inputs/zui-text-input/zui-text-input.js",
-    "components/base-components/inputs/zui-number-input/zui-number-input.js"
+    "components/base-components/inputs/zui-number-input/zui-number-input.js",
+    "components/base-components/inputs/zui-text-input/zui-text-input.js"
   ],
   "compiler": {
     "name": "@stencil/core",

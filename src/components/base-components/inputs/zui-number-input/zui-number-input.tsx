@@ -27,7 +27,7 @@ export class NumberInput {
   /**
    * value prop that can set the value attribute
    */
-  @Prop({ mutable: true }) value: string;
+  @Prop({ reflect: true, mutable: true }) value: string;
 
   /**
    * handleKeydown makes sure it only accepts numbers

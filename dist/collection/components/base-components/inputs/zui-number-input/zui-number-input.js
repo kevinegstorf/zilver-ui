@@ -84,7 +84,7 @@ export class NumberInput {
                 "text": "value prop that can set the value attribute"
             },
             "attribute": "value",
-            "reflect": false
+            "reflect": true
         }
     }; }
     static get states() { return {
