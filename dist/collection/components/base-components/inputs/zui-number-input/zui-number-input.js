@@ -23,7 +23,9 @@ export class NumberInput {
         return undefined;
     }
     render() {
-        return (h("input", { pattern: "\\d*", type: "number", min: this.minimalNumber, placeholder: this.placeholder, ref: el => (this.numInput = el.shadowRoot), value: this.numValue || this.value }));
+        return (h("input", { pattern: "\\d*", type: "number", min: this.minimalNumber, placeholder: this.placeholder, 
+            // ref={el => (this.numInput = el)}
+            ref: el => console.log(el), value: this.numValue || this.value }));
     }
     static get is() { return "zui-number-input"; }
     static get encapsulation() { return "shadow"; }
@@ -71,7 +73,7 @@ export class NumberInput {
         },
         "value": {
             "type": "string",
-            "mutable": true,
+            "mutable": false,
             "complexType": {
                 "original": "string",
                 "resolved": "string",
@@ -84,7 +86,7 @@ export class NumberInput {
                 "text": "value prop that can set the value attribute"
             },
             "attribute": "value",
-            "reflect": true
+            "reflect": false
         }
     }; }
     static get states() { return {

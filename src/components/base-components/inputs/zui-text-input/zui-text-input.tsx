@@ -33,7 +33,8 @@ export class TextInput {
       <input
         type="text"
         placeholder={this.placeholder}
-        ref={el => (this.textInput = el)}
+        // ref={el => (this.textInput = el)}
+        ref={el => console.log(el)}
         value={this.textValue || this.value}
       />
     );

@@ -2,7 +2,7 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-const core = require('./core-5ea93307.js');
+const core = require('./core-fc49939e.js');
 
 const NumberInput = class {
     constructor(hostRef) {
@@ -29,7 +29,9 @@ const NumberInput = class {
         return undefined;
     }
     render() {
-        return (core.h("input", { pattern: "\\d*", type: "number", min: this.minimalNumber, placeholder: this.placeholder, ref: el => (this.numInput = el.shadowRoot), value: this.numValue || this.value }));
+        return (core.h("input", { pattern: "\\d*", type: "number", min: this.minimalNumber, placeholder: this.placeholder,
+            // ref={el => (this.numInput = el)}
+            ref: el => console.log(el), value: this.numValue || this.value }));
     }
     static get style() { return "input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}input[type=number]{-moz-appearance:textfield}"; }
 };
@@ -42,7 +44,9 @@ const TextInput = class {
         this.textValue = this.textInput.value;
     }
     render() {
-        return (core.h("input", { type: "text", placeholder: this.placeholder, ref: el => (this.textInput = el), value: this.textValue || this.value }));
+        return (core.h("input", { type: "text", placeholder: this.placeholder,
+            // ref={el => (this.textInput = el)}
+            ref: el => console.log(el), value: this.textValue || this.value }));
     }
     static get style() { return ""; }
 };

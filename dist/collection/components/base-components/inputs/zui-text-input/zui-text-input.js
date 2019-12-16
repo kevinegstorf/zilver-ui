@@ -4,7 +4,9 @@ export class TextInput {
         this.textValue = this.textInput.value;
     }
     render() {
-        return (h("input", { type: "text", placeholder: this.placeholder, ref: el => (this.textInput = el), value: this.textValue || this.value }));
+        return (h("input", { type: "text", placeholder: this.placeholder, 
+            // ref={el => (this.textInput = el)}
+            ref: el => console.log(el), value: this.textValue || this.value }));
     }
     static get is() { return "zui-text-input"; }
     static get originalStyleUrls() { return {

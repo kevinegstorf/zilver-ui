@@ -708,13 +708,6 @@ var renderVdom = function (hostElm, hostRef, cmpMeta, renderFnResults) {
     var rootVnode = isHost(renderFnResults)
         ? renderFnResults
         : h(null, null, renderFnResults);
-    if (cmpMeta.$attrsToReflect$) {
-        rootVnode.$attrs$ = rootVnode.$attrs$ || {};
-        cmpMeta.$attrsToReflect$.forEach(function (_a) {
-            var propName = _a[0], attribute = _a[1];
-            return rootVnode.$attrs$[attribute] = hostElm[propName];
-        });
-    }
     rootVnode.$tag$ = null;
     rootVnode.$flags$ |= 4 /* isHost */;
     hostRef.$vnode$ = rootVnode;
@@ -955,9 +948,6 @@ var proxyComponent = function (Cstr, cmpMeta, flags) {
                 var propName = _a[0], m = _a[1];
                 var attrName = m[1] || propName;
                 attrNameToPropName_1.set(attrName, propName);
-                if (m[0] & 512 /* ReflectAttr */) {
-                    cmpMeta.$attrsToReflect$.push([propName, attrName]);
-                }
                 return attrName;
             });
         }
@@ -1168,9 +1158,6 @@ var bootstrapLazy = function (lazyBundles, options) {
         }
         {
             cmpMeta.$listeners$ = compactMeta[3];
-        }
-        {
-            cmpMeta.$attrsToReflect$ = [];
         }
         if (!supportsShadowDom && cmpMeta.$flags$ & 1 /* shadowDomEncapsulation */) {
             cmpMeta.$flags$ |= 8 /* needsShadowDomShim */;
