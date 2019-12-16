@@ -1,5 +1,5 @@
 export declare class TextInput {
-    numInput: HTMLInputElement;
+    textInput: HTMLInputElement;
     /**
      * numValue is used to control the input value
      */
@@ -12,5 +12,6 @@ export declare class TextInput {
      * value prop that can set the value attribute
      */
     value: string;
+    handleKeyDown(): void;
     render(): any;
 }

@@ -1,1 +1,8 @@
-<!doctype html><html dir="ltr" lang="en"><head> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"> <title>Stencil Component Starter</title>  <link rel="modulepreload" href="/build/p-8pxijovw.entry.js"><link rel="modulepreload" href="/build/p-f0ae9241.js"><script nomodule="" src="/build/zilver-ui.js"></script> </head> <body> <zui-number-input placeholder="NUM INPUT" value=""></zui-number-input> <zui-text-input placeholder="TEXT INPUT" value=""></zui-text-input> <script type="module" data-resources-url="/build/" data-stencil-namespace="zilver-ui">import{p as e,b as a}from"/build/p-f0ae9241.js";e().then(e=>a([["p-8pxijovw",[[0,"zui-number-input",{placeholder:[1],minimalNumber:[2,"minimal-number"],value:[1],numValue:[32]},[[0,"keydown","handleKeyDown"]]],[1,"zui-text-input",{placeholder:[1],value:[1],textValue:[32]}]]]],e));</script></body></html>
+<!doctype html><html dir="ltr" lang="en"><head> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"> <title>Stencil Component Starter</title> <script type="module" src="/build/zilver-ui.esm.js"></script> <script nomodule="" src="/build/zilver-ui.js"></script> </head> <body> <zui-number-input placeholder="NUM INPUT" value=""></zui-number-input> <zui-text-input placeholder="TEXT INPUT" value=""></zui-text-input> <script>if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+  // auto-unregister service worker during dev mode
+  navigator.serviceWorker.getRegistration().then(function(registration) {
+    if (registration) {
+      registration.unregister().then(function() { location.reload(true) });
+    }
+  });
+}</script></body></html>

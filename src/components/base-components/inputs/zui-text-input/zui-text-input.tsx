@@ -1,12 +1,12 @@
-import { Component, Prop, h, State } from "@stencil/core";
+import { Component, Prop, h, State, Listen } from "@stencil/core";
 
 @Component({
   tag: "zui-text-input",
-  styleUrl: "zui-text-input.css",
-  shadow: true
+  styleUrl: "zui-text-input.css"
+  // shadow: true
 })
 export class TextInput {
-  numInput: HTMLInputElement;
+  textInput: HTMLInputElement;
 
   /**
    * numValue is used to control the input value
@@ -23,12 +23,17 @@ export class TextInput {
    */
   @Prop() value: string;
 
+  @Listen("keydown")
+  handleKeyDown() {
+    this.textValue = this.textInput.value;
+  }
+
   render() {
     return (
       <input
         type="text"
         placeholder={this.placeholder}
-        ref={el => (this.numInput = el)}
+        ref={el => (this.textInput = el)}
         value={this.textValue || this.value}
       />
     );

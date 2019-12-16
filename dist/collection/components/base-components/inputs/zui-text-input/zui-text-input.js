@@ -1,10 +1,13 @@
 import { h } from "@stencil/core";
 export class TextInput {
+    handleKeyDown() {
+        console.log(this.textValue);
+        this.textValue = this.textInput.value;
+    }
     render() {
-        return (h("input", { type: "text", placeholder: this.placeholder, ref: el => (this.numInput = el), value: this.textValue || this.value }));
+        return (h("input", { type: "text", placeholder: this.placeholder, ref: el => (this.textInput = el), value: this.textValue || this.value }));
     }
     static get is() { return "zui-text-input"; }
-    static get encapsulation() { return "shadow"; }
     static get originalStyleUrls() { return {
         "$": ["zui-text-input.css"]
     }; }
@@ -50,4 +53,11 @@ export class TextInput {
     static get states() { return {
         "textValue": {}
     }; }
+    static get listeners() { return [{
+            "name": "keydown",
+            "method": "handleKeyDown",
+            "target": undefined,
+            "capture": false,
+            "passive": false
+        }]; }
 }
