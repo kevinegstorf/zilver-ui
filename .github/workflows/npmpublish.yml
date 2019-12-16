@@ -32,9 +32,9 @@ jobs:
           git config --global user.email "kevin.egstorf@gmail.com"
           git config --global user.name "kevinegstorf"
       - run: npm ci
-      - run: | 
-          npm version patch
-          git push https://${{secrets.GH_Token}}@github.com/kevinegstorf/zilver-ui
+#       - run: | 
+#           npm version patch
+#           git push https://${{secrets.GH_Token}}@github.com/kevinegstorf/zilver-ui
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
