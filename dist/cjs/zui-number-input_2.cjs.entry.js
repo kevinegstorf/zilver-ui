@@ -2,7 +2,7 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-const core = require('./core-e5f0394c.js');
+const core = require('./core-fc49939e.js');
 
 const NumberInput = class {
     constructor(hostRef) {

@@ -2,8 +2,8 @@ import { Component, Prop, h, Listen, State } from "@stencil/core";
 
 @Component({
   tag: "zui-number-input",
-  styleUrl: "zui-number-input.css"
-  // shadow: true
+  styleUrl: "zui-number-input.css",
+  shadow: true
 })
 export class NumberInput {
   numInput: HTMLInputElement;
@@ -27,7 +27,7 @@ export class NumberInput {
   /**
    * value prop that can set the value attribute
    */
-  @Prop() value: string;
+  @Prop({ mutable: true }) value: string;
 
   /**
    * handleKeydown makes sure it only accepts numbers

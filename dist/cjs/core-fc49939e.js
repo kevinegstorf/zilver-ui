@@ -23,6 +23,8 @@ const NAMESPACE = 'zilver-ui';
 
 let queueCongestion = 0;
 let queuePending = false;
+let scopeId;
+let hostTagName;
 let isSvgMode = false;
 const win = window;
 const doc = document;
@@ -34,6 +36,7 @@ const plt = {
     ael: (el, eventName, listener, opts) => el.addEventListener(eventName, listener, opts),
     rel: (el, eventName, listener, opts) => el.removeEventListener(eventName, listener, opts),
 };
+const supportsShadowDom =  /*@__PURE__*/ (() => !!doc.documentElement.attachShadow)() ;
 const supportsListenerOptions = /*@__PURE__*/ (() => {
     let supportsListenerOptions = false;
     try {
@@ -170,6 +173,7 @@ const writeTask = /*@__PURE__*/ queueTask(queueDomWrites, true);
  * Don't add values to these!!
  */
 const EMPTY_OBJ = {};
+const isDef = (v) => v != null;
 const isComplexType = (o) => {
     // https://jsperf.com/typeof-fn-object/5
     o = typeof o;
@@ -196,7 +200,7 @@ const patchBrowser = async () => {
         plt.$cssShim$ = win.__stencil_cssshim;
     }
     // @ts-ignore
-    const importMeta = (typeof document === 'undefined' ? new (require('u' + 'rl').URL)('file:' + __filename).href : (document.currentScript && document.currentScript.src || new URL('core-e5f0394c.js', document.baseURI).href));
+    const importMeta = (typeof document === 'undefined' ? new (require('u' + 'rl').URL)('file:' + __filename).href : (document.currentScript && document.currentScript.src || new URL('core-fc49939e.js', document.baseURI).href));
     const regex = new RegExp(`\/${NAMESPACE}(\\.esm)?\\.js($|\\?|#)`);
     const scriptElm = Array.from(doc.querySelectorAll('script')).find(s => (regex.test(s.src) ||
         s.getAttribute('data-stencil-namespace') === NAMESPACE));
@@ -335,7 +339,20 @@ const addStyle = (styleContainerNode, cmpMeta, mode, hostElm) => {
 };
 const attachStyles = (elm, cmpMeta, mode) => {
     const endAttachStyles = createTime('attachStyles', cmpMeta.$tagName$);
-    const scopeId = addStyle( elm.getRootNode(), cmpMeta, mode, elm);
+    const scopeId = addStyle(( supportsShadowDom && elm.shadowRoot)
+        ? elm.shadowRoot
+        : elm.getRootNode(), cmpMeta, mode, elm);
+    if ( cmpMeta.$flags$ & 10 /* needsScopedEncapsulation */) {
+        // only required when we're NOT using native shadow dom (slot)
+        // or this browser doesn't support native shadow dom
+        // and this host element was NOT created with SSR
+        // let's pick out the inner content for slot projection
+        // create a node to represent where the original
+        // content was first placed, which is useful later on
+        // DOM WRITE!!
+        elm['s-sc'] = scopeId;
+        elm.classList.add(scopeId + '-h');
+    }
     endAttachStyles();
 };
 const getScopeId = (tagName, mode) => 'sc-' + ( tagName);
@@ -488,6 +505,11 @@ const createElm = (oldParentVNode, newParentVNode, childIndex, parentElm) => {
         {
             updateElement(null, newVNode, isSvgMode);
         }
+        if ( isDef(scopeId) && elm['s-si'] !== scopeId) {
+            // if there is a scopeId and this is the initial render
+            // then let's add the scopeId as a css class
+            elm.classList.add((elm['s-si'] = scopeId));
+        }
         if (newVNode.$children$) {
             for (i = 0; i < newVNode.$children$.length; ++i) {
                 // create the node
@@ -505,6 +527,9 @@ const createElm = (oldParentVNode, newParentVNode, childIndex, parentElm) => {
 const addVnodes = (parentElm, before, parentVNode, vnodes, startIdx, endIdx) => {
     let containerElm = ( parentElm);
     let childNode;
+    if ( containerElm.shadowRoot && containerElm.tagName === hostTagName) {
+        containerElm = containerElm.shadowRoot;
+    }
     for (; startIdx <= endIdx; ++startIdx) {
         if (vnodes[startIdx]) {
             childNode = createElm(null, parentVNode, startIdx);
@@ -634,6 +659,7 @@ const callNodeRefs = (vNode) => {
     }
 };
 const renderVdom = (hostElm, hostRef, cmpMeta, renderFnResults) => {
+    hostTagName = hostElm.tagName;
     const oldVNode = hostRef.$vnode$ || newVNode(null, null);
     const rootVnode = isHost(renderFnResults)
         ? renderFnResults
@@ -641,7 +667,10 @@ const renderVdom = (hostElm, hostRef, cmpMeta, renderFnResults) => {
     rootVnode.$tag$ = null;
     rootVnode.$flags$ |= 4 /* isHost */;
     hostRef.$vnode$ = rootVnode;
-    rootVnode.$elm$ = oldVNode.$elm$ = ( hostElm);
+    rootVnode.$elm$ = oldVNode.$elm$ = ( hostElm.shadowRoot || hostElm );
+    {
+        scopeId = hostElm['s-sc'];
+    }
     // synchronous patch
     patch(oldVNode, rootVnode);
 };
@@ -950,6 +979,9 @@ const initializeComponent = async (elm, hostRef, cmpMeta, hmrVersionId, Cstr) =>
             const endRegisterStyles = createTime('registerStyles', cmpMeta.$tagName$);
             // this component has styles but we haven't registered them yet
             let style = Cstr.style;
+            if ( cmpMeta.$flags$ & 8 /* needsShadowDomShim */) {
+                style = await new Promise(function (resolve) { resolve(require('./shadow-css-4889ae62-03827a39.js')); }).then(m => m.scopeCss(style, scopeId, false));
+            }
             registerStyle(scopeId, style, !!(cmpMeta.$flags$ & 1 /* shadowDomEncapsulation */));
             endRegisterStyles();
         }
@@ -1066,6 +1098,9 @@ const bootstrapLazy = (lazyBundles, options = {}) => {
         {
             cmpMeta.$listeners$ = compactMeta[3];
         }
+        if ( !supportsShadowDom && cmpMeta.$flags$ & 1 /* shadowDomEncapsulation */) {
+            cmpMeta.$flags$ |= 8 /* needsShadowDomShim */;
+        }
         const tagName = cmpMeta.$tagName$;
         const HostElement = class extends HTMLElement {
             // StencilLazyHost
@@ -1074,6 +1109,17 @@ const bootstrapLazy = (lazyBundles, options = {}) => {
                 super(self);
                 self = this;
                 registerHost(self);
+                if ( cmpMeta.$flags$ & 1 /* shadowDomEncapsulation */) {
+                    // this component is using shadow dom
+                    // and this browser supports shadow dom
+                    // add the read-only property "shadowRoot" to the host element
+                    if (supportsShadowDom) {
+                        self.attachShadow({ 'mode': 'open' });
+                    }
+                    else if ( !('shadowRoot' in self)) {
+                        self.shadowRoot = self;
+                    }
+                }
             }
             connectedCallback() {
                 if (appLoadFallback) {

@@ -1,1 +1,6 @@
-import{p as e,b as a}from"./p-34a69404.js";e().then(e=>a([["p-ec9idv2m",[[0,"zui-number-input",{placeholder:[1],minimalNumber:[2,"minimal-number"],value:[1],numValue:[32]},[[0,"keydown","handleKeyDown"]]],[0,"zui-text-input",{placeholder:[1],value:[1],textValue:[32]},[[0,"keydown","handleKeyDown"]]]]]],e));
+import { p as patchBrowser, g as globals, b as bootstrapLazy } from './core-6681c3d8.js';
+
+patchBrowser().then(options => {
+  globals();
+  return bootstrapLazy([["zui-number-input",[[1,"zui-number-input",{"placeholder":[1],"minimalNumber":[2,"minimal-number"],"value":[1025],"numValue":[32]},[[0,"keydown","handleKeyDown"]]]]],["zui-text-input",[[0,"zui-text-input",{"placeholder":[1],"value":[1],"textValue":[32]},[[0,"keydown","handleKeyDown"]]]]]], options);
+});

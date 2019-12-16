@@ -26,6 +26,7 @@ export class NumberInput {
         return (h("input", { pattern: "\\d*", type: "number", min: this.minimalNumber, placeholder: this.placeholder, ref: el => (this.numInput = el), value: this.numValue || this.value }));
     }
     static get is() { return "zui-number-input"; }
+    static get encapsulation() { return "shadow"; }
     static get originalStyleUrls() { return {
         "$": ["zui-number-input.css"]
     }; }
@@ -70,7 +71,7 @@ export class NumberInput {
         },
         "value": {
             "type": "string",
-            "mutable": false,
+            "mutable": true,
             "complexType": {
                 "original": "string",
                 "resolved": "string",

@@ -1,4 +1,4 @@
-import { r as registerInstance, h } from './core-5af1e661.js';
+import { r as registerInstance, h } from './core-930aed62.js';
 var NumberInput = /** @class */ (function () {
     function NumberInput(hostRef) {
         registerInstance(this, hostRef);
