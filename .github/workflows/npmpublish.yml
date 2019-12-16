@@ -34,7 +34,7 @@ jobs:
       - run: npm ci
       - run: | 
           npm version patch
-          git push https://${{secrets.GH_Token}}@github.com/kevinegstorf/zilver-ui
+          git push https://${{secrets.GH_Token}}@github.com/kevinegstorf/zilver-ui/blob/master/package.json
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
