@@ -1,7 +1,6 @@
 import { h } from "@stencil/core";
 export class TextInput {
     handleKeyDown() {
-        console.log(this.textValue);
         this.textValue = this.textInput.value;
     }
     render() {

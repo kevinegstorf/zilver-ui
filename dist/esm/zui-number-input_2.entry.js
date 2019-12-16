@@ -1,4 +1,4 @@
-import { r as registerInstance, h } from './core-b328fbee.js';
+import { r as registerInstance, h } from './core-5af1e661.js';
 
 const NumberInput = class {
     constructor(hostRef) {
@@ -27,7 +27,20 @@ const NumberInput = class {
     render() {
         return (h("input", { pattern: "\\d*", type: "number", min: this.minimalNumber, placeholder: this.placeholder, ref: el => (this.numInput = el), value: this.numValue || this.value }));
     }
-    static get style() { return "input[type=\"number\"]::-webkit-outer-spin-button,\ninput[type=\"number\"]::-webkit-inner-spin-button {\n  -webkit-appearance: none;\n  margin: 0;\n}\ninput[type=\"number\"] {\n  -moz-appearance: textfield;\n}"; }
+    static get style() { return "input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}input[type=number]{-moz-appearance:textfield}"; }
 };
 
-export { NumberInput as zui_number_input };
+const TextInput = class {
+    constructor(hostRef) {
+        registerInstance(this, hostRef);
+    }
+    handleKeyDown() {
+        this.textValue = this.textInput.value;
+    }
+    render() {
+        return (h("input", { type: "text", placeholder: this.placeholder, ref: el => (this.textInput = el), value: this.textValue || this.value }));
+    }
+    static get style() { return ""; }
+};
+
+export { NumberInput as zui_number_input, TextInput as zui_text_input };
