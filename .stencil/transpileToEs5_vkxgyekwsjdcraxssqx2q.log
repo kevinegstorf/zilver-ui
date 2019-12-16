@@ -28,7 +28,7 @@ var NumberInput = /** @class */ (function () {
         return (h("input", { pattern: "\\d*", type: "number", min: this.minimalNumber, placeholder: this.placeholder, ref: function (el) { return (_this.numInput = el.shadowRoot); }, value: this.numValue || this.value }));
     };
     Object.defineProperty(NumberInput, "style", {
-        get: function () { return "input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}input[type=number]{-moz-appearance:textfield}"; },
+        get: function () { return "STYLE_TEXT_PLACEHOLDER:zui-number-input"; },
         enumerable: true,
         configurable: true
     });
@@ -46,7 +46,7 @@ var TextInput = /** @class */ (function () {
         return (h("input", { type: "text", placeholder: this.placeholder, ref: function (el) { return (_this.textInput = el); }, value: this.textValue || this.value }));
     };
     Object.defineProperty(TextInput, "style", {
-        get: function () { return ""; },
+        get: function () { return "STYLE_TEXT_PLACEHOLDER:zui-text-input"; },
         enumerable: true,
         configurable: true
     });

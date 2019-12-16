@@ -23,7 +23,7 @@ export class NumberInput {
         return undefined;
     }
     render() {
-        return (h("input", { pattern: "\\d*", type: "number", min: this.minimalNumber, placeholder: this.placeholder, ref: el => (this.numInput = el), value: this.numValue || this.value }));
+        return (h("input", { pattern: "\\d*", type: "number", min: this.minimalNumber, placeholder: this.placeholder, ref: el => (this.numInput = el.shadowRoot), value: this.numValue || this.value }));
     }
     static get is() { return "zui-number-input"; }
     static get encapsulation() { return "shadow"; }

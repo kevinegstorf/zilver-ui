@@ -6,7 +6,7 @@ import { Component, Prop, h, Listen, State } from "@stencil/core";
   shadow: true
 })
 export class NumberInput {
-  numInput: HTMLInputElement;
+  numInput: any;
 
   /**
    * numValue is used to control the input value
@@ -52,7 +52,7 @@ export class NumberInput {
         type="number"
         min={this.minimalNumber}
         placeholder={this.placeholder}
-        ref={el => (this.numInput = el)}
+        ref={el => (this.numInput = el.shadowRoot)}
         value={this.numValue || this.value}
       />
     );

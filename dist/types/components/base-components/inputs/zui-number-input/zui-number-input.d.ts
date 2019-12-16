@@ -1,5 +1,5 @@
 export declare class NumberInput {
-    numInput: HTMLInputElement;
+    numInput: any;
     /**
      * numValue is used to control the input value
      */
