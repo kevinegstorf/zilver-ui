@@ -27,12 +27,12 @@ export class NumberInput {
   /**
    * value prop that can set the value attribute
    */
-  @Prop() value: string;
+  @Prop({ mutable: true }) value: string;
 
   /**
    * handleKeydown makes sure it only accepts numbers
    */
-  @Listen("keydown", { capture: true })
+  @Listen("keydown")
   handleKeyDown(ev: KeyboardEvent) {
     const isNum = /^[a-zA-Z0-9._\b]+$/.test(String.fromCharCode(ev.keyCode));
     if (ev.key === "ArrowUp" || ev.key === "ArrowDown") {

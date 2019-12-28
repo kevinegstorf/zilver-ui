@@ -73,7 +73,7 @@ export class NumberInput {
         },
         "value": {
             "type": "string",
-            "mutable": false,
+            "mutable": true,
             "complexType": {
                 "original": "string",
                 "resolved": "string",
@@ -96,7 +96,7 @@ export class NumberInput {
             "name": "keydown",
             "method": "handleKeyDown",
             "target": undefined,
-            "capture": true,
+            "capture": false,
             "passive": false
         }]; }
 }
