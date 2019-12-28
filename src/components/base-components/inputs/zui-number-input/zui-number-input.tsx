@@ -32,7 +32,7 @@ export class NumberInput {
   /**
    * handleKeydown makes sure it only accepts numbers
    */
-  @Listen("keydown")
+  @Listen("keydown", { capture: true })
   handleKeyDown(ev: KeyboardEvent) {
     const isNum = /^[a-zA-Z0-9._\b]+$/.test(String.fromCharCode(ev.keyCode));
     if (ev.key === "ArrowUp" || ev.key === "ArrowDown") {

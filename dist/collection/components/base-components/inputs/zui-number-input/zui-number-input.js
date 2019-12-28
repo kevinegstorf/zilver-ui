@@ -96,7 +96,7 @@ export class NumberInput {
             "name": "keydown",
             "method": "handleKeyDown",
             "target": undefined,
-            "capture": false,
+            "capture": true,
             "passive": false
         }]; }
 }
