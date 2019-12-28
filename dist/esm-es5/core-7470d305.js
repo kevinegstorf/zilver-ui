@@ -57,8 +57,6 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 var NAMESPACE = 'zilver-ui';
 var queueCongestion = 0;
 var queuePending = false;
-var scopeId;
-var hostTagName;
 var isSvgMode = false;
 var win = window;
 var doc = document;
@@ -70,7 +68,6 @@ var plt = {
     ael: function (el, eventName, listener, opts) { return el.addEventListener(eventName, listener, opts); },
     rel: function (el, eventName, listener, opts) { return el.removeEventListener(eventName, listener, opts); },
 };
-var supportsShadowDom = /*@__PURE__*/ (function () { return !!doc.documentElement.attachShadow; })();
 var supportsListenerOptions = /*@__PURE__*/ (function () {
     var supportsListenerOptions = false;
     try {
@@ -207,7 +204,6 @@ var writeTask = /*@__PURE__*/ queueTask(queueDomWrites, true);
  * Don't add values to these!!
  */
 var EMPTY_OBJ = {};
-var isDef = function (v) { return v != null; };
 var isComplexType = function (o) {
     // https://jsperf.com/typeof-fn-object/5
     o = typeof o;
@@ -379,20 +375,7 @@ var addStyle = function (styleContainerNode, cmpMeta, mode, hostElm) {
 };
 var attachStyles = function (elm, cmpMeta, mode) {
     var endAttachStyles = createTime('attachStyles', cmpMeta.$tagName$);
-    var scopeId = addStyle((supportsShadowDom && elm.shadowRoot)
-        ? elm.shadowRoot
-        : elm.getRootNode(), cmpMeta, mode, elm);
-    if (cmpMeta.$flags$ & 10 /* needsScopedEncapsulation */) {
-        // only required when we're NOT using native shadow dom (slot)
-        // or this browser doesn't support native shadow dom
-        // and this host element was NOT created with SSR
-        // let's pick out the inner content for slot projection
-        // create a node to represent where the original
-        // content was first placed, which is useful later on
-        // DOM WRITE!!
-        elm['s-sc'] = scopeId;
-        elm.classList.add(scopeId + '-h');
-    }
+    var scopeId = addStyle(elm.getRootNode(), cmpMeta, mode, elm);
     endAttachStyles();
 };
 var getScopeId = function (tagName, mode) { return 'sc-' + (tagName); };
@@ -549,11 +532,6 @@ var createElm = function (oldParentVNode, newParentVNode, childIndex, parentElm)
         {
             updateElement(null, newVNode, isSvgMode);
         }
-        if (isDef(scopeId) && elm['s-si'] !== scopeId) {
-            // if there is a scopeId and this is the initial render
-            // then let's add the scopeId as a css class
-            elm.classList.add((elm['s-si'] = scopeId));
-        }
         if (newVNode.$children$) {
             for (i = 0; i < newVNode.$children$.length; ++i) {
                 // create the node
@@ -571,9 +549,6 @@ var createElm = function (oldParentVNode, newParentVNode, childIndex, parentElm)
 var addVnodes = function (parentElm, before, parentVNode, vnodes, startIdx, endIdx) {
     var containerElm = (parentElm);
     var childNode;
-    if (containerElm.shadowRoot && containerElm.tagName === hostTagName) {
-        containerElm = containerElm.shadowRoot;
-    }
     for (; startIdx <= endIdx; ++startIdx) {
         if (vnodes[startIdx]) {
             childNode = createElm(null, parentVNode, startIdx);
@@ -703,7 +678,6 @@ var callNodeRefs = function (vNode) {
     }
 };
 var renderVdom = function (hostElm, hostRef, cmpMeta, renderFnResults) {
-    hostTagName = hostElm.tagName;
     var oldVNode = hostRef.$vnode$ || newVNode(null, null);
     var rootVnode = isHost(renderFnResults)
         ? renderFnResults
@@ -718,10 +692,7 @@ var renderVdom = function (hostElm, hostRef, cmpMeta, renderFnResults) {
     rootVnode.$tag$ = null;
     rootVnode.$flags$ |= 4 /* isHost */;
     hostRef.$vnode$ = rootVnode;
-    rootVnode.$elm$ = oldVNode.$elm$ = (hostElm.shadowRoot || hostElm);
-    {
-        scopeId = hostElm['s-sc'];
-    }
+    rootVnode.$elm$ = oldVNode.$elm$ = (hostElm);
     // synchronous patch
     patch(oldVNode, rootVnode);
 };
@@ -996,11 +967,11 @@ var hostListenerOpts = function (flags) { return supportsListenerOptions ?
     }
     : (flags & 2 /* Capture */) !== 0; };
 var initializeComponent = function (elm, hostRef, cmpMeta, hmrVersionId, Cstr) { return __awaiter(void 0, void 0, void 0, function () {
-    var endLoad, endNewInstance, scopeId_1, endRegisterStyles, style_1, ancestorComponent, schedule;
+    var endLoad, endNewInstance, scopeId, endRegisterStyles, style, ancestorComponent, schedule;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                if (!((hostRef.$flags$ & 32 /* hasInitializedComponent */) === 0)) return [3 /*break*/, 5];
+                if (!((hostRef.$flags$ & 32 /* hasInitializedComponent */) === 0)) return [3 /*break*/, 3];
                 // we haven't initialized this element yet
                 hostRef.$flags$ |= 32 /* hasInitializedComponent */;
                 // lazy loaded components
@@ -1040,20 +1011,15 @@ var initializeComponent = function (elm, hostRef, cmpMeta, hmrVersionId, Cstr) {
                     hostRef.$flags$ &= ~8 /* isConstructingInstance */;
                 }
                 endNewInstance();
-                scopeId_1 = getScopeId(cmpMeta.$tagName$);
-                if (!(!styles.has(scopeId_1) && Cstr.style)) return [3 /*break*/, 5];
-                endRegisterStyles = createTime('registerStyles', cmpMeta.$tagName$);
-                style_1 = Cstr.style;
-                if (!(cmpMeta.$flags$ & 8) /* needsShadowDomShim */) return [3 /*break*/, 4]; /* needsShadowDomShim */
-                return [4 /*yield*/, import('./shadow-css-4889ae62-23996f3f.js').then(function (m) { return m.scopeCss(style_1, scopeId_1, false); })];
+                scopeId = getScopeId(cmpMeta.$tagName$);
+                if (!styles.has(scopeId) && Cstr.style) {
+                    endRegisterStyles = createTime('registerStyles', cmpMeta.$tagName$);
+                    style = Cstr.style;
+                    registerStyle(scopeId, style, !!(cmpMeta.$flags$ & 1 /* shadowDomEncapsulation */));
+                    endRegisterStyles();
+                }
+                _a.label = 3;
             case 3:
-                style_1 = _a.sent();
-                _a.label = 4;
-            case 4:
-                registerStyle(scopeId_1, style_1, !!(cmpMeta.$flags$ & 1 /* shadowDomEncapsulation */));
-                endRegisterStyles();
-                _a.label = 5;
-            case 5:
                 ancestorComponent = hostRef.$ancestorComponent$;
                 schedule = function () { return scheduleUpdate(elm, hostRef, cmpMeta, true); };
                 if (ancestorComponent && ancestorComponent['s-rc']) {
@@ -1172,9 +1138,6 @@ var bootstrapLazy = function (lazyBundles, options) {
         {
             cmpMeta.$attrsToReflect$ = [];
         }
-        if (!supportsShadowDom && cmpMeta.$flags$ & 1 /* shadowDomEncapsulation */) {
-            cmpMeta.$flags$ |= 8 /* needsShadowDomShim */;
-        }
         var tagName = cmpMeta.$tagName$;
         var HostElement = /** @class */ (function (_super) {
             __extends(HostElement, _super);
@@ -1185,17 +1148,6 @@ var bootstrapLazy = function (lazyBundles, options) {
                 _super.call(this, self) || this;
                 self = _this;
                 registerHost(self);
-                if (cmpMeta.$flags$ & 1 /* shadowDomEncapsulation */) {
-                    // this component is using shadow dom
-                    // and this browser supports shadow dom
-                    // add the read-only property "shadowRoot" to the host element
-                    if (supportsShadowDom) {
-                        self.attachShadow({ 'mode': 'open' });
-                    }
-                    else if (!('shadowRoot' in self)) {
-                        self.shadowRoot = self;
-                    }
-                }
                 return _this;
             }
             HostElement.prototype.connectedCallback = function () {

@@ -1,8 +1,8 @@
-import { r as registerInstance, h } from './core-7470d305.js';
-
-const NumberInput = class {
+import { registerInstance as __stencil_registerInstance } from "@stencil/core";
+import { h } from "@stencil/core";
+export const NumberInput = class {
     constructor(hostRef) {
-        registerInstance(this, hostRef);
+        __stencil_registerInstance(this, hostRef);
         /**
          * minimalNumber is the minimal value it takes
          * the default value is set to 0 so it will not accept negative numbers
@@ -27,22 +27,5 @@ const NumberInput = class {
     render() {
         return (h("input", { pattern: "\\d*", type: "number", min: this.minimalNumber, placeholder: this.placeholder, ref: el => (this.numInput = el), value: this.numValue || this.value }));
     }
-    static get style() { return "input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}input[type=number]{-moz-appearance:textfield}"; }
+    static get style() { return "STYLE_TEXT_PLACEHOLDER:zui-number-input"; }
 };
-
-const TextInput = class {
-    constructor(hostRef) {
-        registerInstance(this, hostRef);
-    }
-    handleKeyDown() {
-        this.textValue = this.textInput.value;
-    }
-    render() {
-        return (h("input", { type: "text", placeholder: this.placeholder,
-            // ref={el => (this.textInput = el)}
-            ref: el => console.log(el), value: this.textValue || this.value }));
-    }
-    static get style() { return ""; }
-};
-
-export { NumberInput as zui_number_input, TextInput as zui_text_input };

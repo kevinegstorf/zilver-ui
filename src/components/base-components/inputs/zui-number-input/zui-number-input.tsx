@@ -3,7 +3,7 @@ import { Component, Prop, h, Listen, State } from "@stencil/core";
 @Component({
   tag: "zui-number-input",
   styleUrl: "zui-number-input.css",
-  shadow: true
+  shadow: false
 })
 export class NumberInput {
   numInput: any;
@@ -53,7 +53,6 @@ export class NumberInput {
         min={this.minimalNumber}
         placeholder={this.placeholder}
         ref={el => (this.numInput = el)}
-        // ref={el => console.log(el)}
         value={this.numValue || this.value}
       />
     );
