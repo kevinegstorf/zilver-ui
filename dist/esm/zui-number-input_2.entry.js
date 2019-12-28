@@ -40,7 +40,7 @@ const TextInput = class {
     render() {
         return (h("input", { type: "text", placeholder: this.placeholder,
             // ref={el => (this.textInput = el)}
-            ref: el => console.log(el), value: this.textValue || this.value }));
+            ref: el => console.log(el), value: this.textValue }));
     }
     static get style() { return ""; }
 };

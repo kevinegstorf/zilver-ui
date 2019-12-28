@@ -29,10 +29,6 @@ export namespace Components {
     * placeholder text to set the placeholder attribute
     */
     'placeholder': string;
-    /**
-    * value prop that can set the value attribute
-    */
-    'value': string;
   }
 }
 
@@ -76,10 +72,6 @@ declare namespace LocalJSX {
     * placeholder text to set the placeholder attribute
     */
     'placeholder'?: string;
-    /**
-    * value prop that can set the value attribute
-    */
-    'value'?: string;
   }
 
   interface IntrinsicElements {

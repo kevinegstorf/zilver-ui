@@ -18,11 +18,6 @@ export class TextInput {
    */
   @Prop() placeholder: string;
 
-  /**
-   * value prop that can set the value attribute
-   */
-  @Prop() value: string;
-
   @Listen("keydown")
   handleKeyDown() {
     this.textValue = this.textInput.value;
@@ -35,7 +30,7 @@ export class TextInput {
         placeholder={this.placeholder}
         // ref={el => (this.textInput = el)}
         ref={el => console.log(el)}
-        value={this.textValue || this.value}
+        value={this.textValue}
       />
     );
   }

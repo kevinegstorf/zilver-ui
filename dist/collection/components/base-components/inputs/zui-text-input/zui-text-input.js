@@ -6,7 +6,7 @@ export class TextInput {
     render() {
         return (h("input", { type: "text", placeholder: this.placeholder, 
             // ref={el => (this.textInput = el)}
-            ref: el => console.log(el), value: this.textValue || this.value }));
+            ref: el => console.log(el), value: this.textValue }));
     }
     static get is() { return "zui-text-input"; }
     static get originalStyleUrls() { return {
@@ -31,23 +31,6 @@ export class TextInput {
                 "text": "placeholder text to set the placeholder attribute"
             },
             "attribute": "placeholder",
-            "reflect": false
-        },
-        "value": {
-            "type": "string",
-            "mutable": false,
-            "complexType": {
-                "original": "string",
-                "resolved": "string",
-                "references": {}
-            },
-            "required": false,
-            "optional": false,
-            "docs": {
-                "tags": [],
-                "text": "value prop that can set the value attribute"
-            },
-            "attribute": "value",
             "reflect": false
         }
     }; }

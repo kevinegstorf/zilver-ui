@@ -2,11 +2,11 @@ import { Component, Prop, h, Listen, State } from "@stencil/core";
 
 @Component({
   tag: "zui-number-input",
-  styleUrl: "zui-number-input.css",
-  shadow: false
+  styleUrl: "zui-number-input.css"
+  // shadow: false
 })
 export class NumberInput {
-  numInput: any;
+  numInput: HTMLInputElement;
 
   /**
    * numValue is used to control the input value

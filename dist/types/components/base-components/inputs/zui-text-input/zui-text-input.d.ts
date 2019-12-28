@@ -8,10 +8,6 @@ export declare class TextInput {
      * placeholder text to set the placeholder attribute
      */
     placeholder: string;
-    /**
-     * value prop that can set the value attribute
-     */
-    value: string;
     handleKeyDown(): void;
     render(): any;
 }
