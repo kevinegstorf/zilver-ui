@@ -200,7 +200,7 @@ const patchBrowser = async () => {
         plt.$cssShim$ = win.__stencil_cssshim;
     }
     // @ts-ignore
-    const importMeta = (typeof document === 'undefined' ? new (require('u' + 'rl').URL)('file:' + __filename).href : (document.currentScript && document.currentScript.src || new URL('core-fc49939e.js', document.baseURI).href));
+    const importMeta = (typeof document === 'undefined' ? new (require('u' + 'rl').URL)('file:' + __filename).href : (document.currentScript && document.currentScript.src || new URL('core-5ea93307.js', document.baseURI).href));
     const regex = new RegExp(`\/${NAMESPACE}(\\.esm)?\\.js($|\\?|#)`);
     const scriptElm = Array.from(doc.querySelectorAll('script')).find(s => (regex.test(s.src) ||
         s.getAttribute('data-stencil-namespace') === NAMESPACE));
@@ -664,6 +664,10 @@ const renderVdom = (hostElm, hostRef, cmpMeta, renderFnResults) => {
     const rootVnode = isHost(renderFnResults)
         ? renderFnResults
         : h(null, null, renderFnResults);
+    if ( cmpMeta.$attrsToReflect$) {
+        rootVnode.$attrs$ = rootVnode.$attrs$ || {};
+        cmpMeta.$attrsToReflect$.forEach(([propName, attribute]) => rootVnode.$attrs$[attribute] = hostElm[propName]);
+    }
     rootVnode.$tag$ = null;
     rootVnode.$flags$ |= 4 /* isHost */;
     hostRef.$vnode$ = rootVnode;
@@ -896,6 +900,9 @@ const proxyComponent = (Cstr, cmpMeta, flags) => {
                 .map(([propName, m]) => {
                 const attrName = m[1] || propName;
                 attrNameToPropName.set(attrName, propName);
+                if ( m[0] & 512 /* ReflectAttr */) {
+                    cmpMeta.$attrsToReflect$.push([propName, attrName]);
+                }
                 return attrName;
             });
         }
@@ -1097,6 +1104,9 @@ const bootstrapLazy = (lazyBundles, options = {}) => {
         }
         {
             cmpMeta.$listeners$ = compactMeta[3];
+        }
+        {
+            cmpMeta.$attrsToReflect$ = [];
         }
         if ( !supportsShadowDom && cmpMeta.$flags$ & 1 /* shadowDomEncapsulation */) {
             cmpMeta.$flags$ |= 8 /* needsShadowDomShim */;

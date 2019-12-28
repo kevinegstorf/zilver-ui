@@ -27,7 +27,7 @@ export class NumberInput {
   /**
    * value prop that can set the value attribute
    */
-  @Prop({ mutable: true }) value: string;
+  @Prop({ mutable: true, reflectToAttr: true }) value: string;
 
   /**
    * handleKeydown makes sure it only accepts numbers
@@ -52,8 +52,8 @@ export class NumberInput {
         type="number"
         min={this.minimalNumber}
         placeholder={this.placeholder}
-        // ref={el => (this.numInput = el)}
-        ref={el => console.log(el)}
+        ref={el => (this.numInput = el)}
+        // ref={el => console.log(el)}
         value={this.numValue || this.value}
       />
     );

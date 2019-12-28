@@ -643,6 +643,10 @@ const renderVdom = (hostElm, hostRef, cmpMeta, renderFnResults) => {
     const rootVnode = isHost(renderFnResults)
         ? renderFnResults
         : h(null, null, renderFnResults);
+    if ( cmpMeta.$attrsToReflect$) {
+        rootVnode.$attrs$ = rootVnode.$attrs$ || {};
+        cmpMeta.$attrsToReflect$.forEach(([propName, attribute]) => rootVnode.$attrs$[attribute] = hostElm[propName]);
+    }
     rootVnode.$tag$ = null;
     rootVnode.$flags$ |= 4 /* isHost */;
     hostRef.$vnode$ = rootVnode;
@@ -875,6 +879,9 @@ const proxyComponent = (Cstr, cmpMeta, flags) => {
                 .map(([propName, m]) => {
                 const attrName = m[1] || propName;
                 attrNameToPropName.set(attrName, propName);
+                if ( m[0] & 512 /* ReflectAttr */) {
+                    cmpMeta.$attrsToReflect$.push([propName, attrName]);
+                }
                 return attrName;
             });
         }
@@ -1076,6 +1083,9 @@ const bootstrapLazy = (lazyBundles, options = {}) => {
         }
         {
             cmpMeta.$listeners$ = compactMeta[3];
+        }
+        {
+            cmpMeta.$attrsToReflect$ = [];
         }
         if ( !supportsShadowDom && cmpMeta.$flags$ & 1 /* shadowDomEncapsulation */) {
             cmpMeta.$flags$ |= 8 /* needsShadowDomShim */;
