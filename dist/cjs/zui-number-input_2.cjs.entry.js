@@ -2,7 +2,7 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-const core = require('./core-f9af18a5.js');
+const core = require('./core-8ef764bf.js');
 
 const NumberInput = class {
     constructor(hostRef) {
@@ -13,9 +13,6 @@ const NumberInput = class {
          */
         this.minimalNumber = 0;
     }
-    /**
-     * handleKeydown makes sure it only accepts numbers
-     */
     handleKeyDown(ev) {
         const isNum = /^[a-zA-Z0-9._\b]+$/.test(String.fromCharCode(ev.keyCode));
         if (ev.key === "ArrowUp" || ev.key === "ArrowDown") {
@@ -31,6 +28,10 @@ const NumberInput = class {
     render() {
         return (core.h("input", { pattern: "\\d*", type: "number", min: this.minimalNumber, placeholder: this.placeholder, ref: el => (this.numInput = el), value: this.numValue || this.value }));
     }
+    static get watchers() { return {
+        "value": ["handleKeyDown"],
+        "numValue": ["handleKeyDown"]
+    }; }
     static get style() { return "input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}input[type=number]{-moz-appearance:textfield}"; }
 };
 

@@ -7,9 +7,6 @@ export class NumberInput {
          */
         this.minimalNumber = 0;
     }
-    /**
-     * handleKeydown makes sure it only accepts numbers
-     */
     handleKeyDown(ev) {
         const isNum = /^[a-zA-Z0-9._\b]+$/.test(String.fromCharCode(ev.keyCode));
         if (ev.key === "ArrowUp" || ev.key === "ArrowDown") {
@@ -26,6 +23,7 @@ export class NumberInput {
         return (h("input", { pattern: "\\d*", type: "number", min: this.minimalNumber, placeholder: this.placeholder, ref: el => (this.numInput = el), value: this.numValue || this.value }));
     }
     static get is() { return "zui-number-input"; }
+    static get encapsulation() { return "shadow"; }
     static get originalStyleUrls() { return {
         "$": ["zui-number-input.css"]
     }; }
@@ -89,6 +87,13 @@ export class NumberInput {
     static get states() { return {
         "numValue": {}
     }; }
+    static get watchers() { return [{
+            "propName": "value",
+            "methodName": "handleKeyDown"
+        }, {
+            "propName": "numValue",
+            "methodName": "handleKeyDown"
+        }]; }
     static get listeners() { return [{
             "name": "keydown",
             "method": "handleKeyDown",
